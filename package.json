@@ -6,10 +6,11 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
-    "express": "^4.19.2",
     "axios": "^1.7.4",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "body-parser": "^1.20.2"
+    "react-json-view": "^1.21.3"
   }
 }

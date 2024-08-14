@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import SignInButton from './SignInButton';
+import React, { useState, useEffect } from "react";
+import SignInButton from "./SignInButton";
 import { jwtDecode } from "jwt-decode";
+import ReactJson from "react-json-view";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -8,8 +9,8 @@ function App() {
 
   const getTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const accessToken = urlParams.get('access_token');
-    const idToken = urlParams.get('id_token');
+    const accessToken = urlParams.get("access_token");
+    const idToken = urlParams.get("id_token");
 
     if (accessToken && idToken) {
       setToken(accessToken);
@@ -23,11 +24,13 @@ function App() {
   }, []);
 
   const renderObject = (obj) => (
-    <div style={{ marginLeft: '20px' }}>
+    <div style={{ marginLeft: "20px" }}>
       {Object.keys(obj).map((key) => (
         <div key={key}>
-          <strong>{key}:</strong>{' '}
-          {typeof obj[key] === 'object' && obj[key] !== null ? renderObject(obj[key]) : obj[key].toString()}
+          <strong>{key}:</strong>{" "}
+          {typeof obj[key] === "object" && obj[key] !== null
+            ? renderObject(obj[key])
+            : obj[key].toString()}
         </div>
       ))}
     </div>
@@ -37,43 +40,42 @@ function App() {
     return `${window.location.origin}${path}`;
   };
 
-  const clientId = '0f2ce521178825f83f986daa5ce0b2d3';
+  const clientId = "0f2ce521178825f83f986daa5ce0b2d3";
 
   return (
-    <div className="App" style={{ textAlign: 'center', padding: '50px' }}>
+    <div className="App" style={{ textAlign: "center", padding: "50px" }}>
       <h1>Sign In with ID.me</h1>
 
       <SignInButton
         policy="IAL1/AAL1 Policy"
-        redirectUri={constructRedirectUri('/authorization-code/callback')}
+        redirectUri={constructRedirectUri("/authorization-code/callback")}
         clientId={clientId}
         scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/1"
       />
 
       <SignInButton
         policy="IAL1/AAL2 Policy"
-        redirectUri={constructRedirectUri('/authorization-code/callback')}
+        redirectUri={constructRedirectUri("/authorization-code/callback")}
         clientId={clientId}
         scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/2"
       />
 
       <SignInButton
         policy="IAL2/AAL2 Policy"
-        redirectUri={constructRedirectUri('/authorization-code/callback')}
+        redirectUri={constructRedirectUri("/authorization-code/callback")}
         clientId={clientId}
         scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2"
       />
 
       <SignInButton
         policy="IAL2/AAL2 Always Verify"
-        redirectUri={constructRedirectUri('/authorization-code/callback')}
+        redirectUri={constructRedirectUri("/authorization-code/callback")}
         clientId={clientId}
         scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
       />
 
-
       {token && (
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: "20px" }}>
           <h2>Token:</h2>
           <p>{token}</p>
           <h2>User Information:</h2>
@@ -81,8 +83,19 @@ function App() {
             <div>
               {Object.keys(userInfo).map((key) => (
                 <div key={key}>
-                  <strong>{key}:</strong>{' '}
-                  {typeof userInfo[key] === 'object' && userInfo[key] !== null ? renderObject(userInfo[key]) : userInfo[key].toString()}
+                  <strong>{key}:</strong>{" "}
+                  {typeof userInfo[key] === "object" &&
+                  userInfo[key] !== null ? (
+                    <ReactJson
+                      src={userInfo[key]}
+                      name={false}
+                      collapsed={false}
+                      enableClipboard={false}
+                      displayDataTypes={false}
+                    />
+                  ) : (
+                    userInfo[key].toString()
+                  )}
                 </div>
               ))}
             </div>
