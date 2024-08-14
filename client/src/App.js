@@ -45,7 +45,7 @@ function App() {
   return (
     <div
       className="App"
-      style={{ textAlign: "center", padding: "50px", marginBottom: "20px" }}
+      style={{ textAlign: "center", padding: "50px", display:"flex", justifyContent: "space-between",marginBottom: "20px" }}
     >
       <h1>Sign In with ID.me</h1>
 
