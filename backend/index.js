@@ -28,6 +28,7 @@ app.get('/authorization-code/callback', async (req, res) => {
             client_secret: clientSecret,
             grant_type: 'authorization_code',
             code: code,
+            //TODO make this uri dynamic
             redirect_uri: `https://idme-demo-app-8ef557295d28.herokuapp.com/authorization-code/callback`,
         });
 
