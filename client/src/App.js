@@ -47,7 +47,8 @@ function App() {
       className="App"
       style={{ textAlign: "center", padding: "50px", display:"flex", justifyContent: "space-between",marginBottom: "20px" }}
     >
-      <h1>Sign In with ID.me</h1>
+<div className="buttons" style={{ display: "flex", flexDirection: "column", marginRight: "20px" }}>
+<h1>Sign In with ID.me</h1>
 
       <SignInButton
         policy="IAL1/AAL1 Policy"
@@ -76,7 +77,8 @@ function App() {
         clientId={clientId}
         scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
       />
-
+</div>
+<div className="tokenDisplay" style={{width:"0.5em"}}>
       {token && (
         <div style={{ marginTop: "20px" }}>
           <h2>Token:</h2>
@@ -93,6 +95,7 @@ function App() {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }
