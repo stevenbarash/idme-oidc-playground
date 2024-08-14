@@ -43,7 +43,7 @@ function App() {
   const clientId = "0f2ce521178825f83f986daa5ce0b2d3";
 
   return (
-    <div className="App" style={{ textAlign: "center", padding: "50px" }}>
+    <div className="App" style={{ textAlign: "center", padding: "50px", marginBottom: "20px" }}>
       <h1>Sign In with ID.me</h1>
 
       <SignInButton
@@ -74,34 +74,37 @@ function App() {
         scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
       />
 
-      {token && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Token:</h2>
-          <p>{token}</p>
-          <h2>User Information:</h2>
-          {userInfo && (
-            <div>
-              {Object.keys(userInfo).map((key) => (
-                <div key={key}>
-                  <strong>{key}:</strong>{" "}
-                  {typeof userInfo[key] === "object" &&
-                  userInfo[key] !== null ? (
-                    <ReactJson
-                      src={userInfo[key]}
-                      name={false}
-                      collapsed={false}
-                      enableClipboard={false}
-                      displayDataTypes={false}
-                    />
-                  ) : (
-                    userInfo[key].toString()
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      <div>
+
+        {/* Token Display Section */}
+        {token && (
+          <div style={{ marginTop: "20px" }}>
+            <h2>Token:</h2>
+            <p>{token}</p>
+            <h2>User Information:</h2>
+            {userInfo && (
+              <div>
+                {Object.keys(userInfo).map((key) => (
+                  <div key={key}>
+                    <strong>{key}:</strong>{" "}
+                    {typeof userInfo[key] === "object" && userInfo[key] !== null ? (
+                      <ReactJson
+                        src={userInfo[key]}
+                        name={false}
+                        collapsed={false}
+                        enableClipboard={false}
+                        displayDataTypes={false}
+                      />
+                    ) : (
+                      userInfo[key].toString()
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
