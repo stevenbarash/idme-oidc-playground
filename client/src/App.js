@@ -77,36 +77,22 @@ function App() {
         scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
       />
 
-      <div>
-        {/* Token Display Section */}
-        token && (
+      {token && (
         <div style={{ marginTop: "20px" }}>
           <h2>Token:</h2>
           <p>{token}</p>
           <h2>User Information:</h2>
           {userInfo && (
-            <div>
-              {Object.keys(userInfo).map((key) => (
-                <div key={key} style={{ marginBottom: "10px" }}>
-                  <strong>{key}:</strong>{" "}
-                  {typeof userInfo[key] === "object" &&
-                  userInfo[key] !== null ? (
-                    <ReactJson
-                      src={userInfo[key]}
-                      name={false}
-                      collapsed={false}
-                      enableClipboard={false}
-                      displayDataTypes={false}
-                    />
-                  ) : (
-                    userInfo[key].toString()
-                  )}
-                </div>
-              ))}
-            </div>
+            <ReactJson
+              src={userInfo}
+              name={false}
+              collapsed={false}
+              enableClipboard={false}
+              displayDataTypes={false}
+            />
           )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
