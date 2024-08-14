@@ -28,7 +28,7 @@ app.get('/authorization-code/callback', async (req, res) => {
             client_secret: clientSecret,
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: `${req.protocol}://${req.get('host')}/authorization-code/callback`,
+            redirect_uri: `https://idme-demo-app-8ef557295d28.herokuapp.com/authorization-code/callback`,
         });
 
         const { access_token, id_token } = tokenResponse.data;
@@ -45,6 +45,8 @@ app.get('/authorization-code/callback', async (req, res) => {
         res.redirect(`/result?access_token=${access_token}&id_token=${id_token}`);
     } catch (error) {
         console.error('Error exchanging code for token:', error.response ? error.response.data : error.message);
+        console.error('Error exchanging code for token:', error.response ? error.response.data : error.toJSON());
+
         res.status(500).send('Failed to exchange code for token.');
     }
 });
