@@ -59,7 +59,7 @@ function App() {
       response_type: "code",
       scope: scopeString,
     });
-    return `${baseUrl}?${queryParams.toString()}`;
+    return `${baseUrl}?${queryParams.toString().replace(/\+/g, '%20')}`;
   };
 
   return (
