@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SignInButton from "./SignInButton";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import ReactJson from "react-json-view";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -62,44 +63,65 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ padding: "50px" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <h1>Sign In with ID.me</h1>
-        <div style={{ marginBottom: "20px" }}>
-          <h2>Select Scopes</h2>
-          {["http://idmanagement.gov/ns/assurance/ial/1/aal/1", "http://idmanagement.gov/ns/assurance/ial/1/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify", "login", "teacher", "student", "nurse", "military", "government", "responder", "employee", "alumni"].map((scope) => (
-            <label key={scope}>
-              <input
-                type="checkbox"
-                value={scope}
-                onChange={handleScopeChange}
-                checked={selectedScopes.includes(scope)}
-              />
-              {scope.split("/").pop()}
-            </label>
-          ))}
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <h2>Generated OIDC URL</h2>
-          <p>{buildAuthUrl()}</p>
-          <SignInButton policy="Custom" url={buildAuthUrl()} />
-        </div>
-        {token && (
-          <div style={{ marginTop: "20px" }}>
-            <h2>Token:</h2>
-            <p>{token}</p>
-            <h2>User Information:</h2>
-            {userInfo && (
-              <ReactJson
-                src={userInfo}
-                name={false}
-                collapsed={false}
-                enableClipboard={false}
-                displayDataTypes={false}
-              />
-            )}
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <h1 className="text-center mb-4">Sign In with ID.me</h1>
+          <div className="mb-4">
+            <h2>Select Scopes</h2>
+            <div className="form-check">
+              {[
+                { value: "http://idmanagement.gov/ns/assurance/ial/1/aal/1", label: "IAL1/AAL1" },
+                { value: "http://idmanagement.gov/ns/assurance/ial/1/aal/2", label: "IAL1/AAL2" },
+                { value: "http://idmanagement.gov/ns/assurance/ial/2/aal/2", label: "IAL2/AAL2" },
+                { value: "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify", label: "IAL2/AAL2 Always verify" },
+                { value: "login", label: "login" },
+                { value: "teacher", label: "teacher" },
+                { value: "student", label: "student" },
+                { value: "nurse", label: "nurse" },
+                { value: "military", label: "military" },
+                { value: "government", label: "government" },
+                { value: "responder", label: "responder" },
+                { value: "employee", label: "employee" },
+                { value: "alumni", label: "alumni" }
+              ].map((scope) => (
+                <div key={scope.value} className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    value={scope.value}
+                    onChange={handleScopeChange}
+                    checked={selectedScopes.includes(scope.value)}
+                  />
+                  <label className="form-check-label">
+                    {scope.label}
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
-        )}
+          <div className="mb-4">
+            <h2>Generated OIDC URL</h2>
+            <p className="alert alert-info">{buildAuthUrl()}</p>
+            <SignInButton url={buildAuthUrl()} />
+          </div>
+          {token && (
+            <div className="mt-4">
+              <h2>Token:</h2>
+              <p className="alert alert-secondary">{token}</p>
+              <h2>User Information:</h2>
+              {userInfo && (
+                <ReactJson
+                  src={userInfo}
+                  name={false}
+                  collapsed={false}
+                  enableClipboard={false}
+                  displayDataTypes={false}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
