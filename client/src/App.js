@@ -41,60 +41,97 @@ function App() {
   };
 
   const clientId = "0f2ce521178825f83f986daa5ce0b2d3";
-
+  const mockToken = "mock-token-1234567890";
+  const mockUserInfo = {
+    "iss": "https://idp.example.com",
+    "sub": "1234567890",
+    "aud": "client_id_123",
+    "exp": 1716239022,
+    "iat": 1516239022,
+    "auth_time": 1516239022,
+    "nonce": "random_nonce_value",
+    "acr": "urn:mace:incommon:iap:silver",
+    "amr": ["pwd"],
+    "azp": "client_id_123",
+    "name": "John Doe",
+    "preferred_username": "johndoe",
+    "given_name": "John",
+    "family_name": "Doe",
+    "email": "johndoe@example.com",
+    "email_verified": true,
+    "picture": "https://example.com/johndoe.jpg"
+  };
+  
+  const tokenToDisplay = token || mockToken;
+  const userInfoToDisplay = userInfo || mockUserInfo;
+  
   return (
     <div
       className="App"
-      style={{ textAlign: "center", padding: "50px", display:"flex", justifyContent: "space-between",marginBottom: "20px" }}
+      style={{
+        // textAlign: "center",
+        padding: "50px",
+        display: "flex",
+alignContent:"center",
+alignItems:"center"
+
+      }}
     >
-<div className="buttons" style={{ display: "flex", flexDirection: "column", marginRight: "20px" }}>
-<h1>Sign In with ID.me</h1>
-
-      <SignInButton
-        policy="IAL1/AAL1 Policy"
-        redirectUri={constructRedirectUri("/authorization-code/callback")}
-        clientId={clientId}
-        scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/1"
-      />
-
-      <SignInButton
-        policy="IAL1/AAL2 Policy"
-        redirectUri={constructRedirectUri("/authorization-code/callback")}
-        clientId={clientId}
-        scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/2"
-      />
-
-      <SignInButton
-        policy="IAL2/AAL2 Policy"
-        redirectUri={constructRedirectUri("/authorization-code/callback")}
-        clientId={clientId}
-        scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2"
-      />
-
-      <SignInButton
-        policy="IAL2/AAL2 Always Verify"
-        redirectUri={constructRedirectUri("/authorization-code/callback")}
-        clientId={clientId}
-        scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
-      />
-</div>
-<div className="tokenDisplay" style={{width:"0.5em"}}>
-      {token && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Token:</h2>
-          <p>{token}</p>
-          <h2>User Information:</h2>
-          {userInfo && (
-            <ReactJson
-              src={userInfo}
-              name={false}
-              collapsed={false}
-              enableClipboard={false}
-              displayDataTypes={false}
-            />
-          )}
-        </div>
-      )}
+      <div
+        className="buttons"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginRight: "20px",
+        }}
+      >
+        <h1>Sign In with ID.me</h1>
+  
+        <SignInButton
+          policy="IAL1/AAL1 Policy"
+          redirectUri={constructRedirectUri("/authorization-code/callback")}
+          clientId={clientId}
+          scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/1"
+        />
+  
+        <SignInButton
+          policy="IAL1/AAL2 Policy"
+          redirectUri={constructRedirectUri("/authorization-code/callback")}
+          clientId={clientId}
+          scope="openid http://idmanagement.gov/ns/assurance/ial/1/aal/2"
+        />
+  
+        <SignInButton
+          policy="IAL2/AAL2 Policy"
+          redirectUri={constructRedirectUri("/authorization-code/callback")}
+          clientId={clientId}
+          scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2"
+        />
+  
+        <SignInButton
+          policy="IAL2/AAL2 Always Verify"
+          redirectUri={constructRedirectUri("/authorization-code/callback")}
+          clientId={clientId}
+          scope="openid http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify"
+        />
+      </div>
+      <div className="tokenDisplay">
+        {tokenToDisplay && (
+          <div style={{  marginTop: "20px" }}>
+            <h2>Token:</h2>
+            <p>{tokenToDisplay}</p>
+            <h2>User Information:</h2>
+            {userInfoToDisplay && (
+              <ReactJson
+                src={userInfoToDisplay}
+                name={false}
+                collapsed={false}
+                enableClipboard={false}
+                displayDataTypes={false}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
