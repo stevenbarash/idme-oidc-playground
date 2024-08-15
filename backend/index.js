@@ -11,7 +11,6 @@ const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Replace with your actual client secret
 const clientSecret = 'f367572f241bb022a5649f504fb986ce';
 
 // API route for handling OAuth callback
@@ -34,6 +33,7 @@ app.get('/authorization-code/callback', async (req, res) => {
 
         const { access_token, id_token } = tokenResponse.data;
         const decodedToken = jwt.decode(id_token);
+        console.log("Provided ID Token:")
         if (!decodedToken) {
             return res.status(400).json({ error: 'Failed to decode token' });
         }
