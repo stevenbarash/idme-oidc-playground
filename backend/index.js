@@ -33,7 +33,7 @@ app.get('/authorization-code/callback', async (req, res) => {
 
         const { access_token, id_token } = tokenResponse.data;
         const decodedToken = jwt.decode(id_token);
-        console.log("Provided ID Token:")
+        console.log("Provided ID Token: "+id_token)
         if (!decodedToken) {
             return res.status(400).json({ error: 'Failed to decode token' });
         }
