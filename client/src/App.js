@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SignInButton from "./SignInButton";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import ReactJson from "react-json-view";
 
 function App() {
