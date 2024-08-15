@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SignInButton from "./SignInButton";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import ReactJson from "react-json-view";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -52,7 +54,7 @@ function App() {
     const scopeString = `openid ${selectedScopes.join(" ")}`;
     const queryParams = new URLSearchParams({
       client_id: "0f2ce521178825f83f986daa5ce0b2d3",
-      redirect_uri: redirectUri, // Use hardcoded redirect URI
+      redirect_uri: redirectUri,
       response_type: "code",
       scope: scopeString,
     });
@@ -60,46 +62,49 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ padding: "50px" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <h1>Sign In with ID.me</h1>
-        <div style={{ marginBottom: "20px" }}>
-          <h2>Select Scopes</h2>
-          {["http://idmanagement.gov/ns/assurance/ial/1/aal/1", "http://idmanagement.gov/ns/assurance/ial/1/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify", "login", "teacher", "student", "nurse", "military", "government", "responder", "employee", "alumni"].map((scope) => (
-            <label key={scope}>
-              <input
-                type="checkbox"
-                value={scope}
-                onChange={handleScopeChange}
-                checked={selectedScopes.includes(scope)}
-              />
-              {scope.split("/").pop()}
-            </label>
-          ))}
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          <h2>Generated OIDC URL</h2>
-          <p>{buildAuthUrl()}</p>
-          <SignInButton policy="Custom" url={buildAuthUrl()} />
-        </div>
-        {token && (
-          <div style={{ marginTop: "20px" }}>
-            <h2>Token:</h2>
-            <p>{token}</p>
-            <h2>User Information:</h2>
-            {userInfo && (
-              <ReactJson
-                src={userInfo}
-                name={false}
-                collapsed={false}
-                enableClipboard={false}
-                displayDataTypes={false}
-              />
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <h1 className="text-center mb-4">Sign In with ID.me</h1>
+          <Card className="p-4 mb-4">
+            <h2>Select Scopes</h2>
+            <Form>
+              {["http://idmanagement.gov/ns/assurance/ial/1/aal/1", "http://idmanagement.gov/ns/assurance/ial/1/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify", "login", "teacher", "student", "nurse", "military", "government", "responder", "employee", "alumni"].map((scope) => (
+                <Form.Check
+                  key={scope}
+                  type="checkbox"
+                  label={scope.split("/").pop()}
+                  value={scope}
+                  checked={selectedScopes.includes(scope)}
+                  onChange={handleScopeChange}
+                />
+              ))}
+            </Form>
+          </Card>
+          <Card className="p-4 mb-4">
+            <h2>Generated OIDC URL</h2>
+            <Alert variant="info">{buildAuthUrl()}</Alert>
+            <SignInButton policy="Custom" url={buildAuthUrl()} />
+          </Card>
+          {token && (
+            <Card className="p-4">
+              <h2>Token:</h2>
+              <Alert variant="secondary">{token}</Alert>
+              <h2>User Information:</h2>
+              {userInfo && (
+                <ReactJson
+                  src={userInfo}
+                  name={false}
+                  collapsed={false}
+                  enableClipboard={false}
+                  displayDataTypes={false}
+                />
+              )}
+            </Card>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
