@@ -14,6 +14,9 @@ app.use(bodyParser.json());
 const clientSecret = process.env.CLIENT_SECRET || "f367572f241bb022a5649f504fb986ce";
 const clientId = process.env.CLIENT_ID || "0f2ce521178825f83f986daa5ce0b2d3";
 
+// Hardcoded redirect URI for consistency
+const redirectUri = "https://idme-demo-app-8ef557295d28.herokuapp.com/authorization-code/callback";
+
 // API route for handling OAuth callback
 app.get("/authorization-code/callback", async (req, res) => {
   const code = req.query.code;
@@ -23,16 +26,13 @@ app.get("/authorization-code/callback", async (req, res) => {
   }
 
   try {
-    const redirectUri = `${req.protocol}://${req.get("host")}/authorization-code/callback`;
-    console.log("Redirect URI being used:", redirectUri);
-
     const tokenResponse = await axios.post("https://api.idmelabs.com/oauth/token", null, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
         grant_type: "authorization_code",
         code: code,
-        redirect_uri: `${req.protocol}://${req.get("host")}/authorization-code/callback`,
+        redirect_uri: redirectUri, // Use hardcoded redirect URI
       },
     });
 
