@@ -8,7 +8,7 @@ const SignInButton = ({ policy, url }) => {
 
   return (
     <div style={{ marginBottom: "30px" }}>
-      <h2>{policy}</h2>
+      {/* <h2>{policy}</h2> */}
       <button
         onClick={handleSignIn}
         style={{
