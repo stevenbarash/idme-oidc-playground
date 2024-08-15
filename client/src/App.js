@@ -41,29 +41,29 @@ function App() {
   };
 
   const clientId = "0f2ce521178825f83f986daa5ce0b2d3";
-  const mockToken = "mock-token-1234567890";
-  const mockUserInfo = {
-    "iss": "https://idp.example.com",
-    "sub": "1234567890",
-    "aud": "client_id_123",
-    "exp": 1716239022,
-    "iat": 1516239022,
-    "auth_time": 1516239022,
-    "nonce": "random_nonce_value",
-    "acr": "urn:mace:incommon:iap:silver",
-    "amr": ["pwd"],
-    "azp": "client_id_123",
-    "name": "John Doe",
-    "preferred_username": "johndoe",
-    "given_name": "John",
-    "family_name": "Doe",
-    "email": "johndoe@example.com",
-    "email_verified": true,
-    "picture": "https://example.com/johndoe.jpg"
-  };
+  // const mockToken = "mock-token-1234567890";
+  // const mockUserInfo = {
+  //   "iss": "https://idp.example.com",
+  //   "sub": "1234567890",
+  //   "aud": "client_id_123",
+  //   "exp": 1716239022,
+  //   "iat": 1516239022,
+  //   "auth_time": 1516239022,
+  //   "nonce": "random_nonce_value",
+  //   "acr": "urn:mace:incommon:iap:silver",
+  //   "amr": ["pwd"],
+  //   "azp": "client_id_123",
+  //   "name": "John Doe",
+  //   "preferred_username": "johndoe",
+  //   "given_name": "John",
+  //   "family_name": "Doe",
+  //   "email": "johndoe@example.com",
+  //   "email_verified": true,
+  //   "picture": "https://example.com/johndoe.jpg"
+  // };
   
-  const tokenToDisplay = token || mockToken;
-  const userInfoToDisplay = userInfo || mockUserInfo;
+  // const tokenToDisplay = token || mockToken;
+  // const userInfoToDisplay = userInfo || mockUserInfo;
   
   return (
     <div
@@ -116,14 +116,14 @@ alignItems:"center"
         />
       </div>
       <div className="tokenDisplay">
-        {tokenToDisplay && (
+        {token && (
           <div style={{  marginTop: "20px" }}>
             <h2>Token:</h2>
-            <p>{tokenToDisplay}</p>
+            <p>{token}</p>
             <h2>User Information:</h2>
-            {userInfoToDisplay && (
+            {userInfo && (
               <ReactJson
-                src={userInfoToDisplay}
+                src={userInfo}
                 name={false}
                 collapsed={false}
                 enableClipboard={false}
