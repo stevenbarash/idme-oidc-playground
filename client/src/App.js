@@ -65,7 +65,7 @@ function App() {
     <Container className="py-5">
       <Row className="justify-content-center">
         <Col md={8}>
-          <h1 className="text-center mb-4">Sign In with ID.me</h1>
+          <h1 className="text-center mb-4">ID.me OIDC Playground</h1>
           <Card className="p-4 mb-4">
             <h2>Select Scopes</h2>
             <Form>
