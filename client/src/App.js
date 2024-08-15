@@ -69,16 +69,38 @@ function App() {
           <Card className="p-4 mb-4">
             <h2>Select Scopes</h2>
             <Form>
-              {["http://idmanagement.gov/ns/assurance/ial/1/aal/1", "http://idmanagement.gov/ns/assurance/ial/1/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2", "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify", "login", "teacher", "student", "nurse", "military", "government", "responder", "employee", "alumni"].map((scope) => (
-                <Form.Check
-                  key={scope}
-                  type="checkbox"
-                  label={scope.split("/").pop()}
-                  value={scope}
-                  checked={selectedScopes.includes(scope)}
-                  onChange={handleScopeChange}
-                />
-              ))}
+              {[
+                "http://idmanagement.gov/ns/assurance/ial/1/aal/1",
+                "http://idmanagement.gov/ns/assurance/ial/1/aal/2",
+                "http://idmanagement.gov/ns/assurance/ial/2/aal/2",
+                "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify",
+                "login",
+                "teacher",
+                "student",
+                "nurse",
+                "military",
+                "government",
+                "responder",
+                "employee",
+                "alumni"
+              ].map((scope) => {
+                let displayText = scope;
+                if (scope === "http://idmanagement.gov/ns/assurance/ial/1/aal/1") displayText = "IAL1/AAL1";
+                else if (scope === "http://idmanagement.gov/ns/assurance/ial/1/aal/2") displayText = "IAL1/AAL2";
+                else if (scope === "http://idmanagement.gov/ns/assurance/ial/2/aal/2") displayText = "IAL2/AAL2";
+                else if (scope === "http://idmanagement.gov/ns/assurance/ial/2/aal/2-always-verify") displayText = "IAL2/AAL2 Always verify";
+            
+                return (
+                  <Form.Check
+                    key={scope}
+                    type="checkbox"
+                    label={displayText}
+                    value={scope}
+                    checked={selectedScopes.includes(scope)}
+                    onChange={handleScopeChange}
+                  />
+                );
+              })}
             </Form>
           </Card>
           <Card className="p-4 mb-4">
