@@ -23,6 +23,9 @@ app.get("/authorization-code/callback", async (req, res) => {
   }
 
   try {
+    const redirectUri = `${req.protocol}://${req.get("host")}/authorization-code/callback`;
+    console.log("Redirect URI being used:", redirectUri);
+
     const tokenResponse = await axios.post("https://api.idmelabs.com/oauth/token", null, {
       params: {
         client_id: clientId,
