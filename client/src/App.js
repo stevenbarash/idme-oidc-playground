@@ -11,7 +11,7 @@ function App() {
   const [selectedScopes, setSelectedScopes] = useState([]);
   const [ialPolicy, setIalPolicy] = useState("");
 
-  const redirectUri = "https://idme-demo-app-8ef557295d28.herokuapp.com/authorization-code/callback";
+  const redirectUri = "https://sbarash.idme.solutions/authorization-code/callback";
 
   const getTokenFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
